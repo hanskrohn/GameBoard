@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    max-width: 800px;
+    min-height: 100vh;
+}
+
+.center{
+    margin: 0 auto;
+}
+
+.flex {
+    display: flex;
+}
+
+.justifyContentCenter{
+    justify-content: center;
+}
+
+.alignItemsCenter{
+    align-items: center;
+}
+
+.left{
+    border-left: 2px solid black;
+}
+
+.right{
+    border-right: 2px solid black;
+}
+
+.bottom{
+    border-bottom: 2px solid black;
+}
+
+.top{
+    border-top: 2px solid black;
+}
