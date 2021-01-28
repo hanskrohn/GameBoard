@@ -74,13 +74,12 @@ function selectSquare(i , j){
     const player = player1sTurn ? 1 : -1; //player 1 = 1, player 2 = -1
     gameBoard[i][j] = player;
     draw(`${i}${j}`, player);
-    checkWinner();
     nextTurn()
+    checkWinner();
 }
 
 function draw(id, player){
     const div = document.getElementById(id);
-
     if(player === 1){
         div.innerHTML = '<h4>X</h4>';
     }else{
