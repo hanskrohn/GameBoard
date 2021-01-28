@@ -24,6 +24,10 @@
     align-items: center;
 }
 
+.maxFontSize{
+    font-size: 100%;
+}
+
 .left{
     border-left: 2px solid black;
 }
@@ -38,4 +42,26 @@
 
 .top{
     border-top: 2px solid black;
+}
+
+h4{
+    font-size: 170px;
+}
+
+@media (max-width: 520px) {
+    h4{
+        font-size: 130px;
+    }
+}
+
+@media (max-width: 370px) {
+    h4{
+        font-size: 90px;
+    }
+}
+
+@media (max-width: 200px) {
+    h4{
+        font-size: 50px;
+    }
 }
