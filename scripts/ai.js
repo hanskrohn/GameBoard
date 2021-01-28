@@ -1,41 +1,36 @@
-function findAvailableSlots(gamegameBoard){
-    let count = 1;
-
-    for(let i = 0; i < 3; i++){
-        for(let j = 0; j < 3; j++){
-            if(gamegameBoard[i][j] === ''){
-                count++;
-            }
-        }
-    }
-    // console.log(count, gamegameBoard)
-    return count;
-}
-
 function findBestMove() {
-// AI to make its turn
-    let bestScore = -Infinity;
+    // AI to make its turn
+    let bestScore = Infinity * ai * -1;
     let move;
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
         // Is the spot available?
             if (gameBoard[i][j] == '') {
-                gameBoard[i][j] = 1;
-                let score = minimax(gameBoard, 0, false);
+                gameBoard[i][j] = ai;
+                let score = minimax(gameBoard, !aiGoFirst);
                 gameBoard[i][j] = '';
-                if (score > bestScore) {
+                if (compare(score, bestScore)) {
                     bestScore = score;
                     move = { i, j };
                 }
             }
         }
     }
-    gameBoard[move.i][move.j] = 1;
+    gameBoard[move.i][move.j] = ai;
     return `${move.i}${move.j}`
 }
 
-function minimax(gameBoard, depth, isMaximizing) {
+function compare(score, bestScore){
+    if(ai === -1){
+        return score < bestScore
+    }else{
+        return score > bestScore
+    }
+}
+
+function minimax(gameBoard, isMaximizing) {
     let result = checkWinner();
+
     if (result !== null) {
         return result*10;
     }
@@ -47,8 +42,9 @@ function minimax(gameBoard, depth, isMaximizing) {
                 // Is the spot available?
                 if (gameBoard[i][j] == '') {
                     gameBoard[i][j] = 1;
-                    let score = minimax(gameBoard, depth + 1, false);
+                    let score = minimax(gameBoard, false);
                     gameBoard[i][j] = '';
+
                     bestScore = Math.max(score, bestScore);
                 }
             }
@@ -61,8 +57,9 @@ function minimax(gameBoard, depth, isMaximizing) {
                 // Is the spot available?
                 if (gameBoard[i][j] == '') {
                     gameBoard[i][j] = -1;
-                    let score = minimax(gameBoard, depth + 1, true);
+                    let score = minimax(gameBoard, true);
                     gameBoard[i][j] = '';
+
                     bestScore = Math.min(score, bestScore);
                 }
             }

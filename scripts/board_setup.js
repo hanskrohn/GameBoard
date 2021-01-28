@@ -1,6 +1,22 @@
+const PLAYER_1_VALUE = 1;
+const PLAYER_2_VALUE = -1;
+let PLAYING_VS_AI = false;
+let ai = null;
+let human = null;
+let aiGoFirst = false;
+
 function init(){
-    createBoard()
-    manageSquareSize()
+    PLAYING_VS_AI = window.location.pathname.split('/').includes('ai');
+
+    if(PLAYING_VS_AI){
+        const player1IsHuman = window.location.pathname.includes('1')
+        player1IsHuman ? ai = PLAYER_2_VALUE : ai = PLAYER_1_VALUE;
+        player1IsHuman ? human = PLAYER_1_VALUE : human = PLAYER_2_VALUE;
+        aiGoFirst = !player1IsHuman
+    }
+
+    createBoard();
+    manageSquareSize();
 }
 
 function createBoard(){
@@ -18,7 +34,7 @@ function createBoard(){
                                                     <div id = "20" onclick = "selectSquare(2, 0)" class="top right square flex justifyContentCenter alignItemsCenter"></div>
                                                     <div id = "21" onclick = "selectSquare(2, 1)" class="left top right square flex justifyContentCenter alignItemsCenter"></div>
                                                     <div id = "22" onclick = "selectSquare(2, 2)" class="left top square flex justifyContentCenter alignItemsCenter"></div>
-                                                </div>`
+                                                </div>`;
 }
 
 function manageSquareSize(){

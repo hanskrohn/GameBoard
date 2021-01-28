@@ -4,10 +4,7 @@ let gameBoard = [
     ['','','']
 ];
 
-let player1sTurn = true; //x goes first
-let gameover = false;
-let ai = true;
-let available = 9; //9 available moves total
+let player1sTurn = true; // x goes first
 
 function checkWinner(){
     // if player 1 wins return 1
@@ -19,20 +16,17 @@ function checkWinner(){
     let winner = null;
     for(let i = 0; i < 3; i++){
         if(check3Positions(gameBoard[i][0], gameBoard[i][1], gameBoard[i][2])){
-            
             winner = gameBoard[i][0];
         }
     }
     //check vertical
     for(let i = 0; i < 3; i++){
         if(check3Positions(gameBoard[0][i], gameBoard[1][i], gameBoard[2][i])){
-            
             winner = gameBoard[0][i];
         }
     }
     //check diagonal
     if(check3Positions(gameBoard[0][0], gameBoard[1][1], gameBoard[2][2])){
-        
         winner = gameBoard[0][0];
     }
     
@@ -40,14 +34,7 @@ function checkWinner(){
         winner = gameBoard[0][2];
     }
     
-    let openSpots = 0;
-    for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-        if (gameBoard[i][j] == '') {
-            openSpots++;
-        }
-        }
-    }
+    let openSpots = findAvailableSlots();
 
     if (winner == null && openSpots == 0) {
         return 0;
@@ -56,45 +43,72 @@ function checkWinner(){
     }
 }
 
+function findAvailableSlots(){
+    let counter = 0;
+
+    for(let i = 0; i < 3; i++){
+        for(let j = 0; j < 3; j++){
+            if(gameBoard[i][j] === ''){
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
 function check3Positions(a, b, c){
     return a === b && b === c && a === c && a !== '';
 }
 
 function nextTurn(){
-    available--;
-    if(ai){
-        
+    if(findAvailableSlots() === 0){
+        console.log('no available slots')
+        return;
+    }
+    if(PLAYING_VS_AI){
         const id = findBestMove(gameBoard, checkWinner);
-        draw(id, 1);
+        draw(id, ai);
         return
     }
     player1sTurn = !player1sTurn;
 }
 
 function selectSquare(i , j){
-    
+    const winner = checkWinner();
+
+    if(winner !== null){
+        console.log('winner')
+        return;
+    }
 
     if(gameBoard[i][j] !== ''){
         return; //spot taken
     }
+    let player;
+    if(!PLAYING_VS_AI){
+        player = player1sTurn ? PLAYER_1_VALUE : PLAYER_2_VALUE; //player 1 = 1, player 2 = -1
+    }else{
+        player = human
+    }
 
-    const player = player1sTurn ? -1 : 1; //player 1 = 1, player 2 = -1
     gameBoard[i][j] = player;
     draw(`${i}${j}`, player);
     nextTurn()
-    checkWinner();
 }
 
 function draw(id, player){
     const div = document.getElementById(id);
-    console.log(div)
     if(player === 1){
         div.innerHTML = '<h4>X</h4>';
     }else{
         div.innerHTML = '<h4>O</h4>';
     }
 }
-setTimeout(() => {
 
-    nextTurn()
-}, 1000)
+function init(){
+    if(ai === 1){
+        nextTurn()
+    }
+}
+
+document.addEventListener('DOMContentLoaded', init);
