@@ -65,7 +65,6 @@ function check3Positions(a, b, c){
 
 function nextTurn(){
     if(findAvailableSlots() === 0){
-        console.log('no available slots')
         return;
     }
     if(PLAYING_VS_AI){
@@ -82,7 +81,6 @@ function selectSquare(i , j){
     const winner = checkWinner();
     
     if(winner !== null){
-        console.log('winner')
         return;
     }
     
