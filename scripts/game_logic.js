@@ -4,7 +4,10 @@ let gameBoard = [
     ['','','']
 ];
 
+const SQUARE_IDS = ['00', '01', '02', '10', '11', '12', '20', '21', '22'];
+
 let player1sTurn = true; // x goes first
+const winnerDiv = document.getElementById('winner');
 
 function checkWinner(){
     // if player 1 wins return 1
@@ -103,12 +106,50 @@ function draw(id, player){
     }else{
         div.innerHTML = '<h4>O</h4>';
     }
+
+    const winner = checkWinner();
+
+    if(winner !== null){
+        printWinner(winner)
+    }
+
 }
 
 function init(){
     if(ai === 1){
         nextTurn()
     }
+}
+
+function printWinner(winner){
+    let text;
+
+    if(winner === 1){
+        text = "X's won!"
+    }else if(winner === -1){
+        text = "O's won!"
+    }else{
+        text = "Tie!"
+    }
+
+    winnerDiv.innerHTML = `<div>
+                                <h1>${text}</h1>
+                            </div>
+                            <div class = "flex justifyContentEnd"><button onclick="resetGame()">Play Again</button></div> `
+}
+
+function resetGame(){
+    winnerDiv.innerHTML = ''
+    gameBoard = [
+        ['','',''],
+        ['','',''],
+        ['','','']
+    ];
+
+    SQUARE_IDS.forEach(id => {
+        const div = document.getElementById(id);
+        div.innerHTML = ''
+    })
 }
 
 document.addEventListener('DOMContentLoaded', init);

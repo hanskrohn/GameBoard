@@ -48,7 +48,7 @@ function manageSquareSize(){
 }
 
 function getSquareSize(){
-    return Math.min(window.innerWidth, 800) * 0.30;
+    return Math.min(window.innerWidth, 800) * 0.25;
 }
 
 document.addEventListener('DOMContentLoaded', init);
