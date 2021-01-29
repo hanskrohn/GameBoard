@@ -32,6 +32,10 @@
     justify-content: flex-end;
 }
 
+button:focus {
+    outline: none;
+    box-shadow: none;
+}
 
 .alignItemsCenter{
     align-items: center;
