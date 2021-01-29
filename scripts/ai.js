@@ -17,6 +17,7 @@ function findBestMove() {
         }
     }
     gameBoard[move.i][move.j] = ai;
+    player1IsHuman = !player1IsHuman
     return `${move.i}${move.j}`
 }
 

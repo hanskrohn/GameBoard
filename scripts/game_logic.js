@@ -69,8 +69,10 @@ function nextTurn(){
         return;
     }
     if(PLAYING_VS_AI){
-        const id = findBestMove(gameBoard, checkWinner);
-        draw(id, ai);
+        setTimeout(() => {
+            const id = findBestMove(gameBoard, checkWinner);
+            draw(id, ai);
+        },1000)
         return
     }
     player1sTurn = !player1sTurn;
@@ -78,15 +80,23 @@ function nextTurn(){
 
 function selectSquare(i , j){
     const winner = checkWinner();
-
+    
     if(winner !== null){
         console.log('winner')
         return;
     }
-
+    
     if(gameBoard[i][j] !== ''){
         return; //spot taken
     }
+
+    if(player1IsHuman !== null){
+        if(!player1IsHuman){
+            return
+        }
+        player1IsHuman = !player1IsHuman
+    }
+
     let player;
     if(!PLAYING_VS_AI){
         player = player1sTurn ? PLAYER_1_VALUE : PLAYER_2_VALUE; //player 1 = 1, player 2 = -1
@@ -132,10 +142,10 @@ function printWinner(winner){
         text = "Tie!"
     }
 
-    winnerDiv.innerHTML = `<div>
+    winnerDiv.innerHTML = `<div class = "centerText">
                                 <h1>${text}</h1>
                             </div>
-                            <div class = "flex justifyContentEnd"><button onclick="resetGame()">Play Again</button></div> `
+                            <div class = "width80 center"><button onclick="resetGame()">Play Again</button></div> `
 }
 
 function resetGame(){
@@ -150,6 +160,12 @@ function resetGame(){
         const div = document.getElementById(id);
         div.innerHTML = ''
     })
+
+    player1sTurn = true;
+    player1IsHuman = !aiGoFirst
+    if(!player1IsHuman){
+        init()
+    }
 }
 
 document.addEventListener('DOMContentLoaded', init);

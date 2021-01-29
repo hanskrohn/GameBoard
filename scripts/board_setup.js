@@ -3,13 +3,14 @@ const PLAYER_2_VALUE = -1;
 let PLAYING_VS_AI = false;
 let ai = null;
 let human = null;
-let aiGoFirst = false;
+let aiGoFirst = null;
+let player1IsHuman = null
 
 function init(){
     PLAYING_VS_AI = window.location.pathname.split('/').includes('ai');
 
     if(PLAYING_VS_AI){
-        const player1IsHuman = window.location.pathname.includes('1')
+        player1IsHuman = window.location.pathname.includes('1')
         player1IsHuman ? ai = PLAYER_2_VALUE : ai = PLAYER_1_VALUE;
         player1IsHuman ? human = PLAYER_1_VALUE : human = PLAYER_2_VALUE;
         aiGoFirst = !player1IsHuman
