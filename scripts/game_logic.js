@@ -79,7 +79,7 @@ function nextTurn(){
 
 function selectSquare(i , j){
     const winner = checkWinner();
-    
+
     if(winner !== null){
         return;
     }
@@ -87,8 +87,9 @@ function selectSquare(i , j){
     if(gameBoard[i][j] !== ''){
         return; //spot taken
     }
-
+    
     if(player1IsHuman !== null){
+        console.log('here')
         if(!player1IsHuman){
             return
         }
@@ -160,9 +161,11 @@ function resetGame(){
     })
 
     player1sTurn = true;
-    player1IsHuman = !aiGoFirst
-    if(!player1IsHuman){
-        init()
+    if(aiGoFirst !== null){
+        player1IsHuman = !aiGoFirst
+        if(!player1IsHuman){
+            init()
+        }
     }
 }
 
